@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,13 +12,14 @@ namespace DataAccessLayer.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public string CustomerName { get; set; } // компания-заказчик
-        public string ExecutingCompany { get; set; } // компания-исполнитель
-        public ICollection<Employee> Employees { get; set; } // сотрудники
-        public Employee ProjectManager { get; set; } // руководитель проекта
-        public ICollection<Employee> Executors { get; set; } // исполнители проекта
+        public string ExecutingCompany { get; set; } // компания-исполнитель        
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        private int Priority { get; set; }
+        public int Priority { get; set; } // приоритет, 0 - min
+        public int? ProjectManagerId { get; set; } // id руководителя проекта
+        public Employee ProjectManager { get; set; } // руководителя проекта
+        public virtual ICollection<Employee> Employees { get; set; } // сотрудники
+        public virtual ICollection<Employee> Executors { get; set; } // исполнители проекта
 
         public Project()
         {
