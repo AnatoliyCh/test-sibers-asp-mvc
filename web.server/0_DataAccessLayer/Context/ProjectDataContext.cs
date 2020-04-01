@@ -1,4 +1,4 @@
-﻿using DataAccessLayer.Model;
+﻿using DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SqlClient;
 
-namespace DataAccessLayer.DataBase
+namespace DataAccessLayer.Context
 {
     public class ProjectDataContext : DbContext
     {
