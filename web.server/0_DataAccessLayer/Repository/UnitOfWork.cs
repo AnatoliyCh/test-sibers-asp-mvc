@@ -14,8 +14,10 @@ namespace DataAccessLayer.Repository
         private ProjectDataContext dataContext;
         private ProjectRepository projectRepository;
         private EmployeeRepository employeeRepository;
+        private bool disposed = false;
 
         public UnitOfWork(string connectionString) => dataContext = new ProjectDataContext();
+
         public IRepository<Project> Projects
         {
             get
@@ -24,7 +26,6 @@ namespace DataAccessLayer.Repository
                 return projectRepository;
             }
         }
-
         public IRepository<Employee> Employees
         {
             get
@@ -33,11 +34,7 @@ namespace DataAccessLayer.Repository
                 return employeeRepository;
             }
         }
-
         public void Save() => dataContext.SaveChanges();
-
-        private bool disposed = false;
-
         public virtual void Dispose(bool disposing)
         {
             if (!this.disposed)
@@ -46,7 +43,6 @@ namespace DataAccessLayer.Repository
                 this.disposed = true;
             }
         }
-
         public void Dispose()
         {
             Dispose(true);
