@@ -7,22 +7,25 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using BusinessLogicLayer.Services;
 
 namespace _2_PresentationLayer.Controllers
 {
     public class HomeController : Controller
     {
-        private ProjectDataContext db = new ProjectDataContext();
+        private EmployeeService employeeService = new EmployeeService();
 
         public ActionResult Index()
         {
-            var projects = db.Projects.Include(p => p.ProjectManager);
-            return View(db.Employees.ToList());
+
+            //var projects = db.Projects.Include(p => p.ProjectManager);
+            return View(employeeService.GetEmployees());
         }
 
         public ActionResult Details(int id = 0)
         {
-            Employee employee = db.Employees.Find(id);
+            //Employee employee = db.Employees.Find(id);
+            Employee employee = employeeService.GetEmployee(id);
 
             if (employee == null) return HttpNotFound();
             return View(employee);
@@ -30,7 +33,7 @@ namespace _2_PresentationLayer.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            employeeService.Dispose();
             base.Dispose(disposing);
         }
 

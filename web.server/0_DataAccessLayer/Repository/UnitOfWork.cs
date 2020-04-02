@@ -16,7 +16,7 @@ namespace DataAccessLayer.Repository
         private EmployeeRepository employeeRepository;
         private bool disposed = false;
 
-        public UnitOfWork(string connectionString) => dataContext = new ProjectDataContext();
+        public UnitOfWork(string connectionString = "") => dataContext = new ProjectDataContext();
 
         public IRepository<Project> Projects
         {

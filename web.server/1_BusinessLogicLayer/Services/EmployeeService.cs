@@ -1,6 +1,7 @@
 ﻿using BusinessLogicLayer.Interfaces;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
+using DataAccessLayer.Repository;
 using System.Collections.Generic;
 
 namespace BusinessLogicLayer.Services
@@ -9,6 +10,7 @@ namespace BusinessLogicLayer.Services
     {
         IUnitOfWork DataBase { get; set; }
 
+        public EmployeeService() => DataBase = new UnitOfWork();
         public EmployeeService(IUnitOfWork dataBase) => DataBase = dataBase;
 
         public Employee GetEmployee(int id)
