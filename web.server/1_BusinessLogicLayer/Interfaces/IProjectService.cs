@@ -1,13 +1,13 @@
-﻿using DataAccessLayer.Models;
+﻿using BusinessLogicLayer.DTO;
 using System.Collections.Generic;
 
 namespace BusinessLogicLayer.Interfaces
 {
     public interface IProjectService
     {
-        Project GetProject(int id);
-        IEnumerable<Project> GetProjects();
-        void CreateProject(Project project);
+        ProjectDTO GetProject(int id);
+        IEnumerable<ProjectDTO> GetProjects();
+        void CreateProject(ProjectDTO dto);
         void SaveProject();
         void Dispose();
     }

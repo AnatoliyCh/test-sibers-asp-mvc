@@ -17,8 +17,6 @@ namespace BusinessLogicLayer.Mappers
                 FirstName = model.FirstName,
                 MiddleName = model.MiddleName,
                 Email = model.Email,
-                EmployeeInProjects = model.EmployeeInProjects.Count,
-                ExecutorInProjects = model.ExecutorInProjects.Count,
             };
         }
         public Employee GetModel(EmployeeDTO dto)
@@ -30,19 +28,17 @@ namespace BusinessLogicLayer.Mappers
                 FirstName = dto.FirstName,
                 MiddleName = dto.MiddleName,
                 Email = dto.Email,
-                EmployeeInProjects = new List<Project>(),
-                ExecutorInProjects = new List<Project>(),
             };
         }
         public IEnumerable<EmployeeDTO> GetDTOs(IEnumerable<Employee> models)
         {
-            IList<EmployeeDTO> dtos = new List<EmployeeDTO>();
+            ICollection<EmployeeDTO> dtos = new List<EmployeeDTO>();
             foreach (var item in models) dtos.Add(GetDTO(item));
             return dtos;
         }
         public IEnumerable<Employee> GetModels(IEnumerable<EmployeeDTO> dtos)
         {
-            IList<Employee> models = new List<Employee>();
+            ICollection<Employee> models = new List<Employee>();
             foreach (var item in dtos) models.Add(GetModel(item));
             return models;
         }

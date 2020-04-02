@@ -8,12 +8,18 @@ namespace BusinessLogicLayer.DTO
 {
     public class EmployeeDTO
     {
+        public EmployeeDTO()
+        {
+            EmployeeInProjects = new List<ProjectDTO>();
+            ExecutorInProjects = new List<ProjectDTO>();
+        }
+
         public int Id { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string Email { get; set; }
-        public int EmployeeInProjects { get; set; } // проекты в которых ОН сотрудник
-        public int ExecutorInProjects { get; set; } // проекты в которых ОН исполнитель
+        public ICollection<ProjectDTO> EmployeeInProjects { get; set; } // проекты в которых сотрудник
+        public ICollection<ProjectDTO> ExecutorInProjects { get; set; } // проекты в которых исполнитель
     }
 }

@@ -10,8 +10,8 @@ namespace BusinessLogicLayer.Interfaces
     public interface IMapper<T1, T2>
     {
         T2 GetDTO(T1 model);
-        T1 GetModel(T2 model);
+        T1 GetModel(T2 dto);
         IEnumerable<T2> GetDTOs(IEnumerable<T1> models);
-        IEnumerable<T1> GetModels(IEnumerable<T2> models);
+        IEnumerable<T1> GetModels(IEnumerable<T2> dtos);
     }
 }

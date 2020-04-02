@@ -13,22 +13,41 @@ namespace BusinessLogicLayer.Mappers
     {
         public ProjectDTO GetDTO(Project model)
         {
-            throw new NotImplementedException();
+            return new ProjectDTO
+            {
+                Id = model.Id,
+                Name = model.Name,
+                CustomerName = model.CustomerName,
+                ExecutingCompany = model.ExecutingCompany,
+                StartDate = model.StartDate,
+                EndDate = model.EndDate,
+                Priority = model.Priority,
+            };
         }
-
+        public Project GetModel(ProjectDTO dto)
+        {
+            return new Project
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                CustomerName = dto.CustomerName,
+                ExecutingCompany = dto.ExecutingCompany,
+                StartDate = dto.StartDate,
+                EndDate = dto.EndDate,
+                Priority = dto.Priority,
+            };
+        }
         public IEnumerable<ProjectDTO> GetDTOs(IEnumerable<Project> models)
         {
-            throw new NotImplementedException();
-        }
-
-        public Project GetModel(ProjectDTO model)
+            ICollection<ProjectDTO> dtos = new List<ProjectDTO>();
+            foreach (var item in models) dtos.Add(GetDTO(item));
+            return dtos;
+        }        
+        public IEnumerable<Project> GetModels(IEnumerable<ProjectDTO> dtos)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Project> GetModels(IEnumerable<ProjectDTO> models)
-        {
-            throw new NotImplementedException();
+            ICollection<Project> models = new List<Project>();
+            foreach (var item in dtos) models.Add(GetModel(item));
+            return models;
         }
     }
 }
