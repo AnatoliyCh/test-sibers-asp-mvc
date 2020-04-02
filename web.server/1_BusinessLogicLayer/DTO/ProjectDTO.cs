@@ -16,7 +16,7 @@ namespace BusinessLogicLayer.DTO
         public DateTime EndDate { get; set; }
         public int Priority { get; set; } // приоритет, 0 - min
         public EmployeeDTO ProjectManager { get; set; } // руководителя проекта
-        public int Employees { get; set; } // сотрудники
-        public int Executors { get; set; } // исполнители проекта
+        public int Employees { get; set; } // кол-во сотрудников
+        public int Executors { get; set; } // кол-во исполнителей проекта
     }
 }

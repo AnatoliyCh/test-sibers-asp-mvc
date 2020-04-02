@@ -13,7 +13,7 @@ namespace BusinessLogicLayer.DTO
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string Email { get; set; }
-        public int EmployeeInProjects { get; set; } // кол-во проектов в которых ОН сотрудник
-        public int ExecutorInProjects { get; set; } // кол-во проектов в которых ОН исполнитель
+        public int EmployeeInProjects { get; set; } // проекты в которых ОН сотрудник
+        public int ExecutorInProjects { get; set; } // проекты в которых ОН исполнитель
     }
 }

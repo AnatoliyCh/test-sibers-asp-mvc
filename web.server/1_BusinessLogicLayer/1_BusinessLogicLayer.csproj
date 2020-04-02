@@ -41,8 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\EmployeeDTO.cs" />
+    <Compile Include="DTO\ProjectDTO.cs" />
     <Compile Include="Interfaces\IEmployeeService.cs" />
+    <Compile Include="Interfaces\IMapper.cs" />
+    <Compile Include="Interfaces\IMapperEmployee.cs" />
+    <Compile Include="Interfaces\IMapperProject.cs" />
     <Compile Include="Interfaces\IProjectService.cs" />
+    <Compile Include="Mappers\MapperEmployee.cs" />
+    <Compile Include="Mappers\MapperProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\ProjectService.cs" />

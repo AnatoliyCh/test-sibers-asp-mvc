@@ -1,6 +1,7 @@
-﻿using BusinessLogicLayer.Interfaces;
+﻿using BusinessLogicLayer.DTO;
+using BusinessLogicLayer.Interfaces;
+using BusinessLogicLayer.Mappers;
 using DataAccessLayer.Interfaces;
-using DataAccessLayer.Models;
 using DataAccessLayer.Repository;
 using System.Collections.Generic;
 
@@ -8,20 +9,32 @@ namespace BusinessLogicLayer.Services
 {
     public class EmployeeService : IEmployeeService
     {
-        IUnitOfWork DataBase { get; set; }
+        private readonly IMapperEmployee mapperEmployee = new MapperEmployee();
+        public IUnitOfWork DataBase { get; set; }
 
         public EmployeeService() => DataBase = new UnitOfWork();
         public EmployeeService(IUnitOfWork dataBase) => DataBase = dataBase;
 
-        public Employee GetEmployee(int id)
+        public EmployeeDTO GetEmployee(int id)
         {
-            return DataBase.Employees.Get(id);
+            var employee = DataBase.Employees.Get(id);
+            if (employee != null) return mapperEmployee.GetDTO(employee);
+            return null;
         }
-        public IEnumerable<Employee> GetEmployees()
+        public IEnumerable<EmployeeDTO> GetEmployees()
         {
-            return DataBase.Employees.GetAll();
+            var employees = DataBase.Employees.GetAll();
+            if (employees != null) return mapperEmployee.GetDTOs(employees);
+            return null;
         }
-        public void CreateEmployee(Employee employee) => DataBase.Employees.Create(employee);
+        public void CreateEmployee(EmployeeDTO employee)
+        {
+            if (employee != null)
+            {
+                var newEmployee = mapperEmployee.GetModel(employee);
+                DataBase.Employees.Create(newEmployee);
+            }
+        }
         public void SaveEmployee() => DataBase.Save();
         public void Dispose() => DataBase.Dispose();
     }

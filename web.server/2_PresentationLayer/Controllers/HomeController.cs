@@ -1,6 +1,4 @@
-﻿using DataAccessLayer.Context;
-using DataAccessLayer.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -8,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using BusinessLogicLayer.Services;
+using BusinessLogicLayer.DTO;
 
 namespace _2_PresentationLayer.Controllers
 {
@@ -25,7 +24,7 @@ namespace _2_PresentationLayer.Controllers
         public ActionResult Details(int id = 0)
         {
             //Employee employee = db.Employees.Find(id);
-            Employee employee = employeeService.GetEmployee(id);
+            EmployeeDTO employee = employeeService.GetEmployee(id);
 
             if (employee == null) return HttpNotFound();
             return View(employee);

@@ -1,5 +1,5 @@
-﻿@using DataAccessLayer.Models
-@model Employee
+﻿@using BusinessLogicLayer.DTO
+@model EmployeeDTO
 @{
     ViewBag.Title = "Details";
 }
@@ -18,7 +18,7 @@
         </div>
 
         <div class="display-label"><b>Курсы</b></div>
-        <ul>
+        @*<ul>
             @foreach (Project project in Model.ExecutorInProjects)
             {
                 <li>@project.Name</li>
@@ -29,6 +29,6 @@
             {
                 <li>@project.Name</li>
             }
-        </ul>
+        </ul>*@
 
     </fieldset>
