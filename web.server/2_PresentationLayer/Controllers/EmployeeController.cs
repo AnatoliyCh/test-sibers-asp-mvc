@@ -23,7 +23,6 @@ namespace PresentationLayer.Controllers
         {
             EmployeeDTO employee = employeeService.GetEmployee(id);
             if (employee == null) return HttpNotFound();
-            //ViewBag.EmployeeInProjects = employeeService.
             return View(employee);
         }
 
@@ -35,11 +34,12 @@ namespace PresentationLayer.Controllers
 
         // POST: Employee/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(EmployeeDTO employeeDTO)
         {
             try
             {
-                // TODO: Add insert logic here
+                employeeService.CreateEmployee(employeeDTO);
+                employeeService.SaveEmployee();
 
                 return RedirectToAction("Index");
             }

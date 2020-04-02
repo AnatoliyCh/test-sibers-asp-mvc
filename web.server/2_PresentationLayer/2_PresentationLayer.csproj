@@ -255,10 +255,10 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Employee\Details.cshtml" />
     <Content Include="Views\Employee\Create.cshtml" />
-    <Content Include="Views\Project\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

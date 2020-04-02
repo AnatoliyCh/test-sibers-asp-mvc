@@ -1,67 +1,51 @@
-﻿@model BusinessLogicLayer.DTO.EmployeeDTO
+﻿@using BusinessLogicLayer.DTO;
+@model EmployeeDTO
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Детальная форма:</h2>
 
 <div>
-    <h4>EmployeeDTO</h4>
+    <h4>Сотрудник</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
+        <dt>@Html.LabelFor(model => model.LastName)</dt>
+        <dd> @Html.DisplayFor(model => model.LastName) </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
+        <dt>@Html.LabelFor(model => model.FirstName)</dt>
+        <dd>@Html.DisplayFor(model => model.FirstName)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
+        <dt>@Html.LabelFor(model => model.MiddleName)</dt>
+        <dd>@Html.DisplayFor(model => model.MiddleName)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MiddleName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MiddleName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EmployeeInProjects)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EmployeeInProjects)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ExecutorInProjects)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ExecutorInProjects)
-        </dd>
-
+        <dt>@Html.LabelFor(model => model.Email)</dt>
+        <dd>@Html.DisplayFor(model => model.Email)</dd>
     </dl>
+    @if (Model.EmployeeInProjects != null && Model.EmployeeInProjects.Count > 0)
+    {
+        <label class="display-label"><b>Сотрудник в:</b></label>
+        <ul>
+            @foreach (var project in Model.EmployeeInProjects)
+            {
+                <li>@project.Name</li>
+            }
+        </ul>
+    }
+    @if (Model.ExecutorInProjects != null && Model.ExecutorInProjects.Count > 0)
+    {
+        <label class="display-label"><b>Исполнитель в:</b></label>
+        <ul>
+            @foreach (var project in Model.ExecutorInProjects)
+            {
+                <li>@project.Name</li>
+            }
+        </ul>
+    }
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("К списку", "Index")
 </p>
