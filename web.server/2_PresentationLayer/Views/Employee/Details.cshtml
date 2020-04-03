@@ -2,7 +2,7 @@
 @model EmployeeDTO
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Детали";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -46,6 +46,6 @@
     }
 </div>
 <p>
-    @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("К списку", "Index")
+    @Html.ActionLink("К списку", "Index") |
+    @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id })
 </p>

@@ -1,0 +1,77 @@
+﻿@using BusinessLogicLayer.DTO;
+@model EmployeeDTO
+
+@{
+    ViewBag.Title = "Удаление";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Удаление</h2>
+
+<div>
+    <h4>Сотрудник</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MiddleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+    </dl>
+    @if (Model.EmployeeInProjects != null && Model.EmployeeInProjects.Count > 0)
+    {
+        <label class="display-label"><b>Сотрудник в:</b></label>
+        <ul>
+            @foreach (var project in Model.EmployeeInProjects)
+            {
+                <li>@project.Name</li>
+            }
+        </ul>
+    }
+    @if (Model.ExecutorInProjects != null && Model.ExecutorInProjects.Count > 0)
+    {
+        <label class="display-label"><b>Исполнитель в:</b></label>
+        <ul>
+            @foreach (var project in Model.ExecutorInProjects)
+            {
+                <li>@project.Name</li>
+            }
+        </ul>
+    }
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.ActionLink("К списку", "Index") |
+            <input type="submit" value="Удалить" class="btn btn-default" />
+        </div>
+    }
+</div>

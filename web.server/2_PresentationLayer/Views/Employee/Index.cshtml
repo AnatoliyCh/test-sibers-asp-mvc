@@ -5,13 +5,16 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section Scripts {
+    @Scripts.Render("~/Scripts/ProjectDataTable.js")
+}
 
 <h2>Сотрудники</h2>
 
 <p>
     <button type="button" onclick="location.href='@Url.Action("Create", "Employee")'" class="btn btn-info add-new"><i style="font-weight:bold; font-size:16px">+</i> Новый</button>
 </p>
-<table class="table table-bordered">
+<table class="table table-bordered table-row-truncate">
     <tr>
         <th>Фамилия</th>
         <th>Имя</th>
@@ -26,22 +29,22 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.LastName)
+                <div data-toggle="tooltip" data-placement="bottom">@Html.DisplayFor(modelItem => item.LastName)</div>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
+                <div data-toggle="tooltip" data-placement="bottom">@Html.DisplayFor(modelItem => item.FirstName)</div>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MiddleName)
+                <div data-toggle="tooltip" data-placement="bottom">@Html.DisplayFor(modelItem => item.MiddleName)</div>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                <div data-toggle="tooltip" data-placement="bottom">@Html.DisplayFor(modelItem => item.Email)</div>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EmployeeInProjects.Count)
+                <div data-toggle="tooltip" data-placement="bottom">@Html.DisplayFor(modelItem => item.EmployeeInProjects.Count)</div>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ExecutorInProjects.Count)
+                <div data-toggle="tooltip" data-placement="bottom">@Html.DisplayFor(modelItem => item.ExecutorInProjects.Count)</div>
             </td>
             <td>
                 @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }) |

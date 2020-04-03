@@ -9,6 +9,8 @@ namespace BusinessLogicLayer.Interfaces
         IEnumerable<EmployeeDTO> GetEmployees();
         void CreateEmployee(EmployeeDTO dto);
         void SaveEmployee();
+        void UpdateEmployee(EmployeeDTO dto);
+        void DeleteEmployee(EmployeeDTO dto);
         void Dispose();
     }
 }

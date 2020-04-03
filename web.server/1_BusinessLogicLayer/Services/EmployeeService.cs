@@ -47,6 +47,14 @@ namespace BusinessLogicLayer.Services
             }
         }
         public void SaveEmployee() => DataBase.Save();
-        public void Dispose() => DataBase.Dispose();
+        public void UpdateEmployee(EmployeeDTO dto)
+        {
+            if (dto != null) DataBase.Employees.Update(mapperEmployee.GetModel(dto));
+        }
+        public void DeleteEmployee(EmployeeDTO dto)
+        {
+            if (dto != null) DataBase.Employees.Delete(dto.Id);
+        }
+        public void Dispose() => DataBase.Dispose();        
     }
 }

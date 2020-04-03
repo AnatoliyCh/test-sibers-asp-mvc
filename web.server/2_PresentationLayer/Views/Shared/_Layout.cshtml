@@ -5,9 +5,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Projectdata.css" rel="stylesheet" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -22,8 +22,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Сотрудник", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Проекты", "About", "Home")</li>
+                    <li>@Html.ActionLink("Сотрудники", "Index", "Employee")</li>
+                    <li>@Html.ActionLink("Проекты", "Index", "Project")</li>
                 </ul>
                 @*@Html.Partial("_LoginPartial")*@
             </div>

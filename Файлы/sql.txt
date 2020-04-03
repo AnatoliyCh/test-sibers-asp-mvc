@@ -1,9 +1,9 @@
 CREATE TABLE [dbo].[Employees] (
     [Id]         INT         IDENTITY (1, 1) NOT NULL,
-    [LastName]   NCHAR (128) NULL,
-    [FirstName]  NCHAR (128) NULL,
-    [MiddleName] NCHAR (128) NULL,
-    [Email]      NCHAR (128) NULL,
+    [LastName]   NVARCHAR (128) NULL,
+    [FirstName]  NVARCHAR (128) NULL,
+    [MiddleName] NVARCHAR (128) NULL,
+    [Email]      NVARCHAR (128) NULL,
     CONSTRAINT [PK_Employees] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
