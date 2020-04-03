@@ -60,6 +60,14 @@ namespace BusinessLogicLayer.Services
                 DataBase.Projects.Create(newProject);
             }
         }
+        public void UpdateProject(ProjectDTO dto)
+        {
+            if (dto != null) DataBase.Projects.Update(mapperProject.GetModel(dto));
+        }
+        public void DeleteProject(ProjectDTO dto)
+        {
+            if (dto != null) DataBase.Projects.Delete(dto.Id);
+        }
         public void SaveProject() => DataBase.Save();
         public void Dispose() => DataBase.Dispose();
     }

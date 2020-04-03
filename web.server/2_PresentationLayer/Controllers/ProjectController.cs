@@ -1,4 +1,5 @@
-﻿using BusinessLogicLayer.Services;
+﻿using BusinessLogicLayer.DTO;
+using BusinessLogicLayer.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,30 +15,28 @@ namespace PresentationLayer.Controllers
         // GET: Project
         public ActionResult Index()
         {
-            var a = projectService.GetProjects();
-            return View(a);
+            return View(projectService.GetProjects());
         }
-
         // GET: Project/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int id = 1)
         {
-            return View();
+            ProjectDTO project = projectService.GetProject(id);
+            if (project == null) return HttpNotFound();
+            return View(project);
         }
-
+        
         // GET: Project/Create
         public ActionResult Create()
         {
             return View();
-        }
-
-        // POST: Project/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        }        
+        [HttpPost] // POST: Project/Create
+        public ActionResult Create(ProjectDTO projectDTO)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                projectService.CreateProject(projectDTO);
+                projectService.SaveProject();
                 return RedirectToAction("Index");
             }
             catch
@@ -45,49 +44,61 @@ namespace PresentationLayer.Controllers
                 return View();
             }
         }
-
+        
         // GET: Project/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id = 1)
         {
-            return View();
-        }
-
-        // POST: Project/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+            ProjectDTO project = projectService.GetProject(id);
+            if (project == null) return HttpNotFound();
+            return View(project);
+        }        
+        [HttpPost] // POST: Project/Edit/5
+        public ActionResult Edit(ProjectDTO projectDTO)
         {
             try
             {
-                // TODO: Add update logic here
-
+                if (projectDTO != null)
+                {
+                    projectService.UpdateProject(projectDTO);
+                    projectService.SaveProject();
+                }
                 return RedirectToAction("Index");
             }
             catch
             {
                 return View();
             }
-        }
-
+        }        
+        
         // GET: Project/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: Project/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+            ProjectDTO project = projectService.GetProject(id);
+            if (project == null) return HttpNotFound();
+            return View(project);
+        }        
+        [HttpPost]// POST: Project/Delete/5
+        public ActionResult Delete(ProjectDTO projectDTO)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                if (projectDTO != null)
+                {
+                    projectService.DeleteProject(projectDTO);
+                    projectService.SaveProject();
+                }
                 return RedirectToAction("Index");
             }
             catch
             {
                 return View();
             }
+        }
+        
+        protected override void Dispose(bool disposing)
+        {
+            projectService.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

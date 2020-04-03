@@ -16,15 +16,26 @@
 </p>
 <table class="table table-bordered table-row-truncate">
     <tr>
-        <th>Фамилия</th>
-        <th>Имя</th>
-        <th>Отчество</th>
-        <th>E-mail</th>
-        <th title="Кол-во проектов">Проекты (сотрудник)</th>
-        <th title="Кол-во проектов">Проекты (рабочий)</th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            <div data-toggle="tooltip" data-placement="bottom" data-title="Количество">@Html.DisplayNameFor(model => model.EmployeeInProjects)</div>
+        </th>
+        <th>
+            <div data-toggle="tooltip" data-placement="bottom" data-title="Количество">@Html.DisplayNameFor(model => model.ExecutorInProjects)</div>
+        </th>
         <th></th>
     </tr>
-
     @foreach (var item in Model)
     {
         <tr>

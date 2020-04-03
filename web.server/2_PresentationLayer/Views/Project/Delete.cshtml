@@ -1,0 +1,60 @@
+﻿@model BusinessLogicLayer.DTO.ProjectDTO
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Удаление</h2>
+<div>
+    <h4>Проект</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.LabelFor(model => model.Name)</dt>
+        <dd> @Html.DisplayFor(model => model.Name) </dd>
+
+        <dt>@Html.LabelFor(model => model.CustomerName)</dt>
+        <dd>@Html.DisplayFor(model => model.CustomerName)</dd>
+
+        <dt>@Html.LabelFor(model => model.ExecutingCompany)</dt>
+        <dd>@Html.DisplayFor(model => model.ExecutingCompany)</dd>
+
+        <dt>@Html.LabelFor(model => model.StartDate)</dt>
+        <dd>@Html.DisplayFor(model => model.StartDate)</dd>
+
+        <dt>@Html.LabelFor(model => model.EndDate)</dt>
+        <dd>@Html.DisplayFor(model => model.EndDate)</dd>
+
+        <dt>@Html.LabelFor(model => model.Priority)</dt>
+        <dd>@Html.DisplayFor(model => model.Priority)</dd>
+    </dl>
+    @if (Model.Employees != null && Model.Employees.Count > 0)
+    {
+        <label class="display-label"><b>Сотрудники:</b></label>
+        <ul>
+            @foreach (var project in Model.Employees)
+            {
+                <li>@project.LastName + @project.FirstName + @project.MiddleName</li>
+            }
+        </ul>
+    }
+    @if (Model.Executors != null && Model.Executors.Count > 0)
+    {
+        <label class="display-label"><b>Исполнители:</b></label>
+        <ul>
+            @foreach (var project in Model.Executors)
+            {
+                <li>@project.LastName + @project.FirstName + @project.MiddleName</li>
+            }
+        </ul>
+    }
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.ActionLink("К списку", "Index") |
+            <input type="submit" value="Удалить" class="btn btn-default" />
+        </div>
+    }
+</div>

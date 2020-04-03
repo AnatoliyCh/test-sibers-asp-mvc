@@ -1,9 +1,5 @@
 ﻿using BusinessLogicLayer.DTO;
 using BusinessLogicLayer.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace PresentationLayer.Controllers
@@ -70,7 +66,7 @@ namespace PresentationLayer.Controllers
             }
         }
         // GET: Employee/Delete/5
-        public ActionResult Delete(int id = 1)
+        public ActionResult Delete(int id)
         {
             EmployeeDTO employee = employeeService.GetEmployee(id);
             if (employee == null) return HttpNotFound();

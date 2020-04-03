@@ -9,6 +9,8 @@ namespace BusinessLogicLayer.Interfaces
         IEnumerable<ProjectDTO> GetProjects();
         void CreateProject(ProjectDTO dto);
         void SaveProject();
+        void UpdateProject(ProjectDTO dto);
+        void DeleteProject(ProjectDTO dto);
         void Dispose();
     }
 }

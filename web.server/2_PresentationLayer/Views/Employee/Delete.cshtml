@@ -7,43 +7,21 @@
 }
 
 <h2>Удаление</h2>
-
 <div>
     <h4>Сотрудник</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
+        <dt>@Html.LabelFor(model => model.LastName)</dt>
+        <dd> @Html.DisplayFor(model => model.LastName) </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
+        <dt>@Html.LabelFor(model => model.FirstName)</dt>
+        <dd>@Html.DisplayFor(model => model.FirstName)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
+        <dt>@Html.LabelFor(model => model.MiddleName)</dt>
+        <dd>@Html.DisplayFor(model => model.MiddleName)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MiddleName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MiddleName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
+        <dt>@Html.LabelFor(model => model.Email)</dt>
+        <dd>@Html.DisplayFor(model => model.Email)</dd>
     </dl>
     @if (Model.EmployeeInProjects != null && Model.EmployeeInProjects.Count > 0)
     {
