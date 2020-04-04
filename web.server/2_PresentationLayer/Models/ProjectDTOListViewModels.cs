@@ -9,7 +9,7 @@ namespace PresentationLayer.Models
 {
     public class ProjectDTOListViewModels
     {
-        private static IList<string> priority = new List<string> { "Все", ">=", "<=", "=", };
+        private static readonly IList<string> priority = new List<string> { "Все", ">=", "<=", "=", };
         public ProjectDTOListViewModels()
         {
             Priorities = new SelectList(priority);

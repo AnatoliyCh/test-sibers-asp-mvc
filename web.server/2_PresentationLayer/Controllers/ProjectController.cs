@@ -10,8 +10,8 @@ namespace PresentationLayer.Controllers
 {
     public class ProjectController : Controller
     {
-        private ProjectService projectService = new ProjectService();
-        private EmployeeService employeeService = new EmployeeService();
+        private readonly ProjectService projectService = new ProjectService();
+        private readonly EmployeeService employeeService = new EmployeeService();
 
         // GET: Project
         public ActionResult Index(string priorityFilter, DateTime? startDateTimeFrom, DateTime? startDateTimeTo, int priorityCurrent = 0)
@@ -118,7 +118,7 @@ namespace PresentationLayer.Controllers
         public ActionResult Delete(ProjectDTO projectDTO)
         {
             try
-            {
+            {                
                 if (projectDTO != null)
                 {
                     projectService.DeleteProject(projectDTO);

@@ -1,4 +1,5 @@
 ﻿@using BusinessLogicLayer.DTO;
+@using BusinessLogicLayer.Infrastructure.Comparers;
 @model EmployeeDTO
 
 @{
@@ -23,26 +24,6 @@
         <dt>@Html.LabelFor(model => model.Email)</dt>
         <dd>@Html.DisplayFor(model => model.Email)</dd>
     </dl>
-    @if (Model.EmployeeInProjects != null && Model.EmployeeInProjects.Count > 0)
-    {
-        <label class="display-label"><b>Сотрудник в:</b></label>
-        <ul>
-            @foreach (var project in Model.EmployeeInProjects)
-            {
-                <li>@project.Name</li>
-            }
-        </ul>
-    }
-    @if (Model.ExecutorInProjects != null && Model.ExecutorInProjects.Count > 0)
-    {
-        <label class="display-label"><b>Исполнитель в:</b></label>
-        <ul>
-            @foreach (var project in Model.ExecutorInProjects)
-            {
-                <li>@project.Name</li>
-            }
-        </ul>
-    }
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -51,5 +32,27 @@
             @Html.ActionLink("К списку", "Index") |
             <input type="submit" value="Удалить" class="btn btn-default" />
         </div>
+    }
+    @if (ViewBag.Projects != null)
+    {
+        var projectDTOEqualityComparer = new ProjectDTOEqualityComparer();
+        <label>Роль в проекте: </label>
+        <table class="table">
+            <tr>
+                <th>@Html.LabelFor(model => model.EmployeeInProjects)</th>
+                <th>@Html.LabelFor(model => model.ExecutorInProjects)</th>
+                <th>Руководителе проекта</th>
+                <th>Названия</th>
+            </tr>
+            @foreach (ProjectDTO project in ViewBag.Projects)
+            {
+                <tr>
+                    <td><input type="checkbox" readonly @(Model.EmployeeInProjects.Contains(project, projectDTOEqualityComparer) ? "checked=\"checked\"" : "") /></td>
+                    <td><input type="checkbox" readonly @(Model.ExecutorInProjects.Contains(project, projectDTOEqualityComparer) ? "checked=\"checked\"" : "") /></td>
+                    <td><input type="checkbox" readonly @(Model.Id == project.ProjectManagerId ? "checked=\"checked\"" : "") /></td>
+                    <td><div data-toggle="tooltip" data-placement="bottom" class="text-truncate">@project.Name </div></td>
+                </tr>
+            }
+        </table>
     }
 </div>

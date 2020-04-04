@@ -1,13 +1,15 @@
 ﻿using BusinessLogicLayer.DTO;
 using BusinessLogicLayer.Services;
+using System;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace PresentationLayer.Controllers
 {
     public class EmployeeController : Controller
     {
-        private ProjectService projectService = new ProjectService();
-        private EmployeeService employeeService = new EmployeeService();
+        private readonly ProjectService projectService = new ProjectService();
+        private readonly EmployeeService employeeService = new EmployeeService();
 
         // GET: Employee
         public ActionResult Index()
@@ -18,11 +20,13 @@ namespace PresentationLayer.Controllers
         public ActionResult Details(int id = 1)
         {
             EmployeeDTO employee = employeeService.GetEmployee(id);
-            var projectDTOs = projectService.Union(employee.EmployeeInProjects, employee.ExecutorInProjects);
-            var managerProjects = employeeService.ManagerProjects(employee.Id, projectDTOs);
             if (employee == null) return HttpNotFound();
+            var projectDTOs = projectService.Union(employee.EmployeeInProjects, employee.ExecutorInProjects);
+            projectDTOs = projectService.Union(projectDTOs, employeeService.ManagerProjects(employee.Id, projectService.GetProjects()));
+            if (projectDTOs != null && projectDTOs.Count() > 0) ViewBag.Projects = projectDTOs;
             return View(employee);
         }
+
         // GET: Employee/Create
         public ActionResult Create()
         {
@@ -43,6 +47,7 @@ namespace PresentationLayer.Controllers
                 return View();
             }
         }
+
         // GET: Employee/Edit/5
         public ActionResult Edit(int id = 1)
         {
@@ -68,11 +73,15 @@ namespace PresentationLayer.Controllers
                 return View();
             }
         }
+
         // GET: Employee/Delete/5
         public ActionResult Delete(int id)
         {
             EmployeeDTO employee = employeeService.GetEmployee(id);
             if (employee == null) return HttpNotFound();
+            var projectDTOs = projectService.Union(employee.EmployeeInProjects, employee.ExecutorInProjects);
+            projectDTOs = projectService.Union(projectDTOs, employeeService.ManagerProjects(employee.Id, projectService.GetProjects()));
+            if (projectDTOs != null && projectDTOs.Count() > 0) ViewBag.Projects = projectDTOs;
             return View(employee);
         }
         // POST: Employee/Delete/5
@@ -90,9 +99,10 @@ namespace PresentationLayer.Controllers
             }
             catch
             {
-                return View();
+                return Redirect("/Employee/Delete/" + employeeDTO.Id);
             }
         }
+
         protected override void Dispose(bool disposing)
         {
             employeeService.Dispose();

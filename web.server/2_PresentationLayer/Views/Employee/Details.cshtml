@@ -1,9 +1,13 @@
 ﻿@using BusinessLogicLayer.DTO;
+@using BusinessLogicLayer.Infrastructure.Comparers;
 @model EmployeeDTO
 
 @{
     ViewBag.Title = "Детали";
     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts {
+    @Scripts.Render("~/Scripts/ProjectData.js")
 }
 
 <h2>Детальная форма:</h2>
@@ -28,24 +32,26 @@
         @Html.ActionLink("К списку", "Index") |
         @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id })
     </p>
-    @if (Model.EmployeeInProjects != null && Model.EmployeeInProjects.Count > 0)
+    @if (ViewBag.Projects != null)
     {
-        <label class="display-label"><b>Сотрудник в:</b></label>
-        <ul>
-            @foreach (var project in Model.EmployeeInProjects)
+        var projectDTOEqualityComparer = new ProjectDTOEqualityComparer();
+        <label>Роль в проекте: </label>
+        <table class="table">
+            <tr>
+                <th>@Html.LabelFor(model => model.EmployeeInProjects)</th>
+                <th>@Html.LabelFor(model => model.ExecutorInProjects)</th>
+                <th>Руководителе проекта</th>
+                <th>Названия</th>
+            </tr>
+            @foreach (ProjectDTO project in ViewBag.Projects)
             {
-                <li>@project.Name</li>
+                <tr>
+                    <td><input type="checkbox" readonly @(Model.EmployeeInProjects.Contains(project, projectDTOEqualityComparer) ? "checked=\"checked\"" : "") /></td>
+                    <td><input type="checkbox" readonly @(Model.ExecutorInProjects.Contains(project, projectDTOEqualityComparer) ? "checked=\"checked\"" : "") /></td>
+                    <td><input type="checkbox" readonly @(Model.Id == project.ProjectManagerId ? "checked=\"checked\"" : "") /></td>
+                    <td><div data-toggle="tooltip" data-placement="bottom" class="text-truncate">@project.Name </div></td>
+                </tr>
             }
-        </ul>
-    }
-    @if (Model.ExecutorInProjects != null && Model.ExecutorInProjects.Count > 0)
-    {
-        <label class="display-label"><b>Исполнитель в:</b></label>
-        <ul>
-            @foreach (var project in Model.ExecutorInProjects)
-            {
-                <li>@project.Name</li>
-            }
-        </ul>
+        </table>
     }
 </div>

@@ -11,12 +11,12 @@ namespace DataAccessLayer.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private ProjectDataContext dataContext;
+        private readonly ProjectDataContext dataContext;
         private ProjectRepository projectRepository;
         private EmployeeRepository employeeRepository;
         private bool disposed = false;
 
-        public UnitOfWork(string connectionString = "") => dataContext = new ProjectDataContext();
+        public UnitOfWork() => dataContext = new ProjectDataContext();
 
         public IRepository<Project> Projects
         {

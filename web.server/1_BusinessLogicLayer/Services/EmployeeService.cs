@@ -14,7 +14,7 @@ namespace BusinessLogicLayer.Services
     {
         private readonly IMapperEmployee mapperEmployee = new MapperEmployee();
         private readonly IMapperProject mapperProject = new MapperProject();
-        private IEqualityComparer<EmployeeDTO> employeeDTOEqualityComparer = new EmployeeDTOEqualityComparer();
+        private readonly IEqualityComparer<EmployeeDTO> employeeDTOEqualityComparer = new EmployeeDTOEqualityComparer();
         public IUnitOfWork DataBase { get; set; }
 
         public EmployeeService() => DataBase = new UnitOfWork();
