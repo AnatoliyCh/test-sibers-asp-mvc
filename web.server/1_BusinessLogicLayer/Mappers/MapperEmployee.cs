@@ -19,7 +19,7 @@ namespace BusinessLogicLayer.Mappers
                 Email = model.Email,
             };
         }
-        public Employee GetModel(EmployeeDTO dto)
+        public Employee GetNewModel(EmployeeDTO dto)
         {
             return new Employee
             {
@@ -36,10 +36,10 @@ namespace BusinessLogicLayer.Mappers
             foreach (var item in models) dtos.Add(GetDTO(item));
             return dtos;
         }
-        public IEnumerable<Employee> GetModels(IEnumerable<EmployeeDTO> dtos)
+        public IEnumerable<Employee> GetNewModels(IEnumerable<EmployeeDTO> dtos)
         {
             ICollection<Employee> models = new List<Employee>();
-            foreach (var item in dtos) models.Add(GetModel(item));
+            foreach (var item in dtos) models.Add(GetNewModel(item));
             return models;
         }
     }

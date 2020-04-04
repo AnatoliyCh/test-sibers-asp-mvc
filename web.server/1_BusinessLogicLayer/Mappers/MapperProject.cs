@@ -22,9 +22,10 @@ namespace BusinessLogicLayer.Mappers
                 StartDate = model.StartDate,
                 EndDate = model.EndDate,
                 Priority = model.Priority,
+                ProjectManagerId = model.ProjectManagerId,
             };
         }
-        public Project GetModel(ProjectDTO dto)
+        public Project GetNewModel(ProjectDTO dto)
         {
             return new Project
             {
@@ -35,6 +36,7 @@ namespace BusinessLogicLayer.Mappers
                 StartDate = dto.StartDate,
                 EndDate = dto.EndDate,
                 Priority = dto.Priority,
+                ProjectManagerId = dto.ProjectManagerId,
             };
         }
         public IEnumerable<ProjectDTO> GetDTOs(IEnumerable<Project> models)
@@ -42,11 +44,11 @@ namespace BusinessLogicLayer.Mappers
             ICollection<ProjectDTO> dtos = new List<ProjectDTO>();
             foreach (var item in models) dtos.Add(GetDTO(item));
             return dtos;
-        }        
-        public IEnumerable<Project> GetModels(IEnumerable<ProjectDTO> dtos)
+        }
+        public IEnumerable<Project> GetNewModels(IEnumerable<ProjectDTO> dtos)
         {
             ICollection<Project> models = new List<Project>();
-            foreach (var item in dtos) models.Add(GetModel(item));
+            foreach (var item in dtos) models.Add(GetNewModel(item));
             return models;
         }
     }

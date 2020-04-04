@@ -5,6 +5,7 @@ using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
 using DataAccessLayer.Repository;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BusinessLogicLayer.Services
 {
@@ -35,26 +36,52 @@ namespace BusinessLogicLayer.Services
             if (employees != null) return mapperEmployee.GetDTOs(employees);
             return null;
         }
+        public IEnumerable<EmployeeDTO> GetEmployees(int[] idEmployees)
+        {
+            IList<EmployeeDTO> tmpEmployees = new List<EmployeeDTO>();
+            if (idEmployees != null && idEmployees.Length > 0)
+            {
+                foreach (var id in idEmployees)
+                {
+                    var employeeDTO = GetEmployee(id);
+                    if (employeeDTO != null) tmpEmployees.Add(employeeDTO);
+                }
+            }
+            return tmpEmployees;
+        }
+        public IEnumerable<EmployeeDTO> GetEmployees(int[] idEmployees, IEnumerable<EmployeeDTO> employees)
+        {
+            IList<EmployeeDTO> tmpEmployees = new List<EmployeeDTO>();
+            if (idEmployees != null && idEmployees.Length > 0 && employees != null && employees.Count() > 0)
+            {
+                foreach (var employee in employees)
+                    foreach (var id in idEmployees)
+                    {
+                        if (employee.Id == id) tmpEmployees.Add(employee);
+                    }
+            }
+            return tmpEmployees;
+        }
         public void CreateEmployee(EmployeeDTO dto)
         {
             if (dto != null)
             {
-                var newEmployee = mapperEmployee.GetModel(dto);
+                var newEmployee = mapperEmployee.GetNewModel(dto);
                 // сборка внешних зависимостей
-                if (dto.EmployeeInProjects.Count > 0) newEmployee.EmployeeInProjects = (ICollection<Project>)mapperProject.GetModels(dto.EmployeeInProjects);
-                if (dto.ExecutorInProjects.Count > 0) newEmployee.ExecutorInProjects = (ICollection<Project>)mapperProject.GetModels(dto.ExecutorInProjects);
+                if (dto.EmployeeInProjects.Count > 0) newEmployee.EmployeeInProjects = (ICollection<Project>)mapperProject.GetNewModels(dto.EmployeeInProjects);
+                if (dto.ExecutorInProjects.Count > 0) newEmployee.ExecutorInProjects = (ICollection<Project>)mapperProject.GetNewModels(dto.ExecutorInProjects);
                 DataBase.Employees.Create(newEmployee);
             }
         }
         public void SaveEmployee() => DataBase.Save();
         public void UpdateEmployee(EmployeeDTO dto)
         {
-            if (dto != null) DataBase.Employees.Update(mapperEmployee.GetModel(dto));
+            if (dto != null) DataBase.Employees.Update(mapperEmployee.GetNewModel(dto));
         }
         public void DeleteEmployee(EmployeeDTO dto)
         {
             if (dto != null) DataBase.Employees.Delete(dto.Id);
         }
-        public void Dispose() => DataBase.Dispose();        
+        public void Dispose() => DataBase.Dispose();
     }
 }
