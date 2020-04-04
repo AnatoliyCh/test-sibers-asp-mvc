@@ -59,7 +59,9 @@ namespace PresentationLayer.Models
         // фильтр даты начала
         private void FilterStartDate(DateTime? startDateTimeFrom, DateTime? startDateTimeTo)
         {
-            if (startDateTimeFrom != null || startDateTimeTo != null)
+            if (startDateTimeFrom != null && startDateTimeTo != null)
+                Projects = Projects.Where(item => item.StartDate >= startDateTimeFrom && item.StartDate <= startDateTimeTo);
+            else if (startDateTimeFrom != null || startDateTimeTo != null)
             {
                 IEnumerable<ProjectDTO> startDateTimeFromList = new List<ProjectDTO>();
                 IEnumerable<ProjectDTO> startDateTimeToList = new List<ProjectDTO>();

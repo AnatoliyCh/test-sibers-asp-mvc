@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BusinessLogicLayer.Infrastructure.Comparers
 {
-    class EmployeeDTOEqualityComparer : IEqualityComparer<EmployeeDTO>
+    public class EmployeeDTOEqualityComparer : IEqualityComparer<EmployeeDTO>
     {
         public bool Equals(EmployeeDTO x, EmployeeDTO y)
         {

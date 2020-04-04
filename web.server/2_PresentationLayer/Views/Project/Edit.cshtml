@@ -1,4 +1,5 @@
 ﻿@using BusinessLogicLayer.DTO;
+@using BusinessLogicLayer.Infrastructure.Comparers;
 @model ProjectDTO
 
 @{
@@ -76,20 +77,20 @@
         </div>
         @if (ViewBag.Employees != null)
         {
-            <label>Роль в проекте: </label>
+            var employeeDTOEqualityComparer = new EmployeeDTOEqualityComparer();
+            <label>Роль в проекте: <button type="button" id="info" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Очистить руководиля: Ctrl + clickMouse">i</button></label>
             <table class="table">
                 <tr>
                     <th>@Html.LabelFor(model => model.Employees)</th>
                     <th>@Html.LabelFor(model => model.Executors)</th>
-                    <th>@Html.LabelFor(model => model.ProjectManagerId) <button type="button" id="info" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Очистить: Ctrl + clickMouse">i</button></th>
+                    <th>@Html.LabelFor(model => model.ProjectManagerId)</th>
                     <th>ФИО</th>
                 </tr>
                 @foreach (EmployeeDTO employee in ViewBag.Employees)
                 {
-                    var a = Model.ProjectManagerId == employee.Id;
                     <tr>
-                        <td><input type="checkbox" name="selectedEmployees" value="@employee.Id" @(Model.Employees.Contains(employee) ? "checked=\"checked\"" : "") /></td>
-                        <td><input type="checkbox" name="selectedExecutors" value="@employee.Id" @(Model.Executors.Contains(employee) ? "checked=\"checked\"" : "") /></td>
+                        <td><input type="checkbox" name="selectedEmployees" value="@employee.Id" @(Model.Employees.Contains(employee, employeeDTOEqualityComparer) ? "checked=\"checked\"" : "") /></td>
+                        <td><input type="checkbox" name="selectedExecutors" value="@employee.Id" @(Model.Executors.Contains(employee, employeeDTOEqualityComparer) ? "checked=\"checked\"" : "") /></td>
                         <td>@Html.RadioButtonFor(model => model.ProjectManagerId, employee.Id)</td>
                         <td><div data-toggle="tooltip" data-placement="bottom" class="text-truncate">@employee.FirstName @employee.LastName @employee.MiddleName </div></td>
                     </tr>

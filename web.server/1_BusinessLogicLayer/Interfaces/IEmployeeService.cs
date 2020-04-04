@@ -6,8 +6,9 @@ namespace BusinessLogicLayer.Interfaces
     public interface IEmployeeService
     {
         EmployeeDTO GetEmployee(int id);
+        /// <summary> получает всех работников </summary>
         IEnumerable<EmployeeDTO> GetEmployees();
-        IEnumerable<EmployeeDTO> GetEmployees(int[] idEmployees);
+        /// <summary> получает работников из employees с id из idEmployees </summary>
         IEnumerable<EmployeeDTO> GetEmployees(int[] idEmployees, IEnumerable<EmployeeDTO> employees);
         void CreateEmployee(EmployeeDTO dto);
         void SaveEmployee();

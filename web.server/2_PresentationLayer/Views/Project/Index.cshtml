@@ -25,7 +25,7 @@
         <input type="date" name="startDateTimeTo" class="form-control" />
         <input type="submit" value="Фильтр" class="btn btn-default" />
         @Html.ValidationMessage("date", "", new { @class = "text-danger" })
-    </div>    
+    </div>
 </form>
 @if (Model.Projects != null && Model.Projects.Count() > 0)
 {
@@ -80,10 +80,10 @@
                     <div data-toggle="tooltip" data-placement="bottom">@Html.DisplayFor(modelItem => item.Priority)</div>
                 </td>
                 <td>
-                    <div data-toggle="tooltip" data-placement="bottom">@Html.DisplayFor(modelItem => item.Employees.Count)</div>
+                    <div data-toggle="tooltip" data-placement="bottom">@Html.DisplayFor(modelItem => item.EmployeesAmount)</div>
                 </td>
                 <td>
-                    <div data-toggle="tooltip" data-placement="bottom">@Html.DisplayFor(modelItem => item.Executors.Count)</div>
+                    <div data-toggle="tooltip" data-placement="bottom">@Html.DisplayFor(modelItem => item.ExecutorsAmount)</div>
                 </td>
                 <td>
                     @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }) |

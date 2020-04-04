@@ -36,5 +36,9 @@ namespace BusinessLogicLayer.DTO
         [Display(Name = "Руководитель проекта")] public EmployeeDTO ProjectManager { get; set; } // руководитель проекта
         [Display(Name = "Сотрудники")] public virtual ICollection<EmployeeDTO> Employees { get; set; } // сотрудники
         [Display(Name = "Исполнители")] public virtual ICollection<EmployeeDTO> Executors { get; set; } // исполнители проекта
+        // количество работников
+        public int EmployeesAmount { get; set; }
+        // количество исполнителей
+        public int ExecutorsAmount { get; set; }
     }
 }

@@ -27,6 +27,7 @@ namespace PresentationLayer.Controllers
         {
             ProjectDTO project = projectService.GetProject(id);
             if (project == null) return HttpNotFound();
+
             var employees = projectService.Union(project.Employees, project.Executors); // сливаем все в один список
             // присоедениее ProjectManager
             if (project.ProjectManagerId != null && (employees.Where(item => item.Id == project.ProjectManagerId)).Count() < 1)
@@ -73,11 +74,7 @@ namespace PresentationLayer.Controllers
             ProjectDTO project = projectService.GetProject(id);
             if (project == null) return HttpNotFound();
             var employees = employeeService.GetEmployees();
-            if (employees != null && employees.Count() > 0)
-            {
-                project = projectService.ProjectBind(project, employees);
-                ViewBag.Employees = employees;
-            }
+            if (employees != null && employees.Count() > 0) ViewBag.Employees = employees;
             return View(project);
         }
         [HttpPost] // POST: Project/Edit/5

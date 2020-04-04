@@ -23,6 +23,8 @@ namespace BusinessLogicLayer.Mappers
                 EndDate = model.EndDate,
                 Priority = model.Priority,
                 ProjectManagerId = model.ProjectManagerId,
+                EmployeesAmount = model.Employees.Count(),
+                ExecutorsAmount = model.Executors.Count(),
             };
         }
         public Project GetNewModel(ProjectDTO dto)

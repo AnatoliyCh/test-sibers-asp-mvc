@@ -36,19 +36,6 @@ namespace BusinessLogicLayer.Services
             if (employees != null) return mapperEmployee.GetDTOs(employees);
             return null;
         }
-        public IEnumerable<EmployeeDTO> GetEmployees(int[] idEmployees)
-        {
-            IList<EmployeeDTO> tmpEmployees = new List<EmployeeDTO>();
-            if (idEmployees != null && idEmployees.Length > 0)
-            {
-                foreach (var id in idEmployees)
-                {
-                    var employeeDTO = GetEmployee(id);
-                    if (employeeDTO != null) tmpEmployees.Add(employeeDTO);
-                }
-            }
-            return tmpEmployees;
-        }
         public IEnumerable<EmployeeDTO> GetEmployees(int[] idEmployees, IEnumerable<EmployeeDTO> employees)
         {
             IList<EmployeeDTO> tmpEmployees = new List<EmployeeDTO>();
