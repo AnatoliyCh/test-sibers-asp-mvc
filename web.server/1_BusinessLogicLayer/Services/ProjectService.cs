@@ -1,11 +1,12 @@
 ﻿using BusinessLogicLayer.DTO;
+using BusinessLogicLayer.Infrastructure.Comparers;
 using BusinessLogicLayer.Interfaces;
 using BusinessLogicLayer.Mappers;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
 using DataAccessLayer.Repository;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BusinessLogicLayer.Services
 {
@@ -14,6 +15,8 @@ namespace BusinessLogicLayer.Services
         private readonly IMapperEmployee mapperEmployee = new MapperEmployee();
         private readonly IMapperProject mapperProject = new MapperProject();
         public IUnitOfWork DataBase { get; set; }
+
+        private IEqualityComparer<EmployeeDTO> employeeDTOEqualityComparer = new EmployeeDTOEqualityComparer();
 
         public ProjectService() => DataBase = new UnitOfWork();
         public ProjectService(IUnitOfWork dataBase) => DataBase = dataBase;
@@ -91,6 +94,10 @@ namespace BusinessLogicLayer.Services
                 if (newExecutors.Count > 0) dto.Executors = newExecutors;
             }
             return dto;
+        }
+        public IEnumerable<EmployeeDTO> Union(IEnumerable<EmployeeDTO> first, IEnumerable<EmployeeDTO> second)
+        {
+            return first.Union(second, employeeDTOEqualityComparer);
         }
         public void Dispose() => DataBase.Dispose();
 

@@ -1,7 +1,7 @@
 ﻿using DataAccessLayer.Models;
 using System.Collections.Generic;
 
-namespace DataAccessLayer.Repository.Comparers
+namespace DataAccessLayer.Infrastructure.Comparers
 {
     public class ProjectEqualityComparer : IEqualityComparer<Project>
     {

@@ -10,7 +10,6 @@
 }
 
 <h2>Редактирование</h2>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -92,7 +91,7 @@
                         <td><input type="checkbox" name="selectedEmployees" value="@employee.Id" @(Model.Employees.Contains(employee) ? "checked=\"checked\"" : "") /></td>
                         <td><input type="checkbox" name="selectedExecutors" value="@employee.Id" @(Model.Executors.Contains(employee) ? "checked=\"checked\"" : "") /></td>
                         <td>@Html.RadioButtonFor(model => model.ProjectManagerId, employee.Id)</td>
-                        <td><div>@employee.FirstName @employee.LastName @employee.MiddleName </div></td>
+                        <td><div data-toggle="tooltip" data-placement="bottom" class="text-truncate">@employee.FirstName @employee.LastName @employee.MiddleName </div></td>
                     </tr>
                 }
             </table>

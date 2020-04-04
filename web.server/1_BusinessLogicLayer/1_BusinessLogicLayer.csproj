@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="DTO\EmployeeDTO.cs" />
     <Compile Include="DTO\ProjectDTO.cs" />
+    <Compile Include="Infrastructure\Comparers\EmployeeDTOEqualityComparer.cs" />
+    <Compile Include="Infrastructure\Comparers\ProjectDTOEqualityComparer.cs" />
     <Compile Include="Interfaces\IEmployeeService.cs" />
     <Compile Include="Interfaces\IMapper.cs" />
     <Compile Include="Interfaces\IMapperEmployee.cs" />

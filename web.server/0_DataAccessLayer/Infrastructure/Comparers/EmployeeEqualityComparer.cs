@@ -1,7 +1,7 @@
 ﻿using DataAccessLayer.Models;
 using System.Collections.Generic;
 
-namespace DataAccessLayer.Repository.Comparers
+namespace BusinessLogicLayer.Infrastructure.Comparers
 {
     class EmployeeEqualityComparer : IEqualityComparer<Employee>
     {

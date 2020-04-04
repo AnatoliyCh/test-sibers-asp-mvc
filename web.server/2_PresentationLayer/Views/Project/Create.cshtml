@@ -10,7 +10,6 @@
 }
 
 <h2>Создание</h2>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -76,12 +75,12 @@
 
         @if (ViewBag.Employees != null)
         {
-            <label>Роль в проекте: </label>
+            <label>Роль в проекте: <button type="button" id="info" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Очистить руководиля: Ctrl + clickMouse">i</button></label>
             <table class="table">
                 <tr>
                     <th>@Html.LabelFor(model => model.Employees)</th>
                     <th>@Html.LabelFor(model => model.Executors)</th>
-                    <th>@Html.LabelFor(model => model.ProjectManager) <button type="button" id="info" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Очистить: Ctrl + clickMouse">i</button></th>
+                    <th>@Html.LabelFor(model => model.ProjectManager)</th>
                     <th>ФИО</th>
                 </tr>
                 @foreach (EmployeeDTO employee in ViewBag.Employees)
@@ -90,7 +89,7 @@
                         <td><input type="checkbox" name="selectedEmployees" value="@employee.Id" @(Model.Employees.Contains(employee) ? "checked=\"checked\"" : "") /></td>
                         <td><input type="checkbox" name="selectedExecutors" value="@employee.Id" @(Model.Executors.Contains(employee) ? "checked=\"checked\"" : "") /></td>
                         <td>@Html.RadioButtonFor(model => model.ProjectManagerId, @employee.Id)</td>
-                        <td><div>@employee.FirstName @employee.LastName @employee.MiddleName </div></td>
+                        <td><div data-toggle="tooltip" data-placement="bottom" class="text-truncate">@employee.FirstName @employee.LastName @employee.MiddleName </div></td>
                     </tr>
                 }
             </table>

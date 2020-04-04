@@ -2,8 +2,11 @@
 @model ProjectDTO
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Детали";
     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts {
+    @Scripts.Render("~/Scripts/ProjectData.js")
 }
 
 <h2>Детальная форма:</h2>
@@ -11,46 +14,48 @@
     <h4>Проект</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>@Html.LabelFor(model => model.Name)</dt>
+        <dt style="width: 170px;">@Html.LabelFor(model => model.Name)</dt>
         <dd> @Html.DisplayFor(model => model.Name) </dd>
 
-        <dt>@Html.LabelFor(model => model.CustomerName)</dt>
+        <dt style="width: 170px;">@Html.LabelFor(model => model.CustomerName)</dt>
         <dd>@Html.DisplayFor(model => model.CustomerName)</dd>
 
-        <dt>@Html.LabelFor(model => model.ExecutingCompany)</dt>
+        <dt style="width: 170px;">@Html.LabelFor(model => model.ExecutingCompany)</dt>
         <dd>@Html.DisplayFor(model => model.ExecutingCompany)</dd>
 
-        <dt>@Html.LabelFor(model => model.StartDate)</dt>
+        <dt style="width: 170px;">@Html.LabelFor(model => model.StartDate)</dt>
         <dd>@Html.DisplayFor(model => model.StartDate)</dd>
 
-        <dt>@Html.LabelFor(model => model.EndDate)</dt>
+        <dt style="width: 170px;">@Html.LabelFor(model => model.EndDate)</dt>
         <dd>@Html.DisplayFor(model => model.EndDate)</dd>
 
-        <dt>@Html.LabelFor(model => model.Priority)</dt>
+        <dt style="width: 170px;">@Html.LabelFor(model => model.Priority)</dt>
         <dd>@Html.DisplayFor(model => model.Priority)</dd>
     </dl>
-    @if (Model.Employees != null && Model.Employees.Count > 0)
+    <p>
+        @Html.ActionLink("К списку", "Index") |
+        @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id })
+    </p>
+    @if (ViewBag.Employees != null)
     {
-        <label class="display-label"><b>Сотрудники:</b></label>
-        <ul>
-            @foreach (var project in Model.Employees)
+        <label>Роль в проекте: </label>
+        <table class="table">
+            <tr>
+                <th>@Html.LabelFor(model => model.Employees)</th>
+                <th>@Html.LabelFor(model => model.Executors)</th>
+                <th>@Html.LabelFor(model => model.ProjectManagerId)</th>
+                <th>ФИО</th>
+            </tr>
+            @foreach (EmployeeDTO employee in ViewBag.Employees)
             {
-                <li>@project.LastName + @project.FirstName + @project.MiddleName</li>
+                var a = Model.ProjectManagerId == employee.Id;
+                <tr>
+                    <td><input type="checkbox" name="selectedEmployees" value="@employee.Id" readonly @(Model.Employees.Contains(employee) ? "checked=\"checked\"" : "") /></td>
+                    <td><input type="checkbox" name="selectedExecutors" value="@employee.Id" readonly @(Model.Executors.Contains(employee) ? "checked=\"checked\"" : "") /></td>
+                    <td>@Html.RadioButtonFor(model => model.ProjectManagerId, employee.Id, new { @readonly = "readonly" }) </td>
+                    <td><div data-toggle="tooltip" data-placement="bottom" class="text-truncate">@employee.FirstName @employee.LastName @employee.MiddleName </div></td>
+                </tr>
             }
-        </ul>
-    }
-    @if (Model.Executors != null && Model.Executors.Count > 0)
-    {
-        <label class="display-label"><b>Исполнители:</b></label>
-        <ul>
-            @foreach (var project in Model.Executors)
-            {
-                <li>@project.LastName @project.FirstName @project.MiddleName</li>
-            }
-        </ul>
+        </table>
     }
 </div>
-<p>
-    @Html.ActionLink("К списку", "Index") |
-    @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id })
-</p>

@@ -13,6 +13,8 @@ namespace BusinessLogicLayer.Interfaces
         void DeleteProject(ProjectDTO dto);
         /// <summary> замены ссылок у DTO на объекты из новой коллекции </summary>
         ProjectDTO ProjectBind(ProjectDTO dto, IEnumerable<EmployeeDTO> employeesDTO);
+        /// <summary> Объединяет 2 коллекции работников проекта </summary>        
+        IEnumerable<EmployeeDTO> Union(IEnumerable<EmployeeDTO> first, IEnumerable<EmployeeDTO> second);
         void Dispose();
     }
 }

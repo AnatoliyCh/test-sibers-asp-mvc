@@ -1,9 +1,9 @@
 ﻿using BusinessLogicLayer.DTO;
 using BusinessLogicLayer.Services;
+using PresentationLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace PresentationLayer.Controllers
@@ -14,15 +14,24 @@ namespace PresentationLayer.Controllers
         private EmployeeService employeeService = new EmployeeService();
 
         // GET: Project
-        public ActionResult Index()
+        public ActionResult Index(string priorityFilter, DateTime? startDateTimeFrom, DateTime? startDateTimeTo, int priorityCurrent = 0)
         {
-            return View(projectService.GetProjects());
+            var newViewModels = new ProjectDTOListViewModels();
+            if (startDateTimeFrom != null && startDateTimeTo != null)
+                if (startDateTimeTo < startDateTimeFrom) ModelState.AddModelError("date", "Дата 'С' меньше, чем дата 'ПО'");
+            if (ModelState.IsValid) newViewModels.ApplyFilters(projectService.GetProjects(), priorityFilter, priorityCurrent, startDateTimeFrom, startDateTimeTo);
+            return View(newViewModels);
         }
         // GET: Project/Details/5
         public ActionResult Details(int id = 1)
         {
             ProjectDTO project = projectService.GetProject(id);
             if (project == null) return HttpNotFound();
+            var employees = projectService.Union(project.Employees, project.Executors); // сливаем все в один список
+            // присоедениее ProjectManager
+            if (project.ProjectManagerId != null && (employees.Where(item => item.Id == project.ProjectManagerId)).Count() < 1)
+                employees = employees.Prepend(employeeService.GetEmployee((int)project.ProjectManagerId));
+            if (employees != null && employees.Count() > 0) ViewBag.Employees = employees;
             return View(project);
         }
 
@@ -101,6 +110,11 @@ namespace PresentationLayer.Controllers
         {
             ProjectDTO project = projectService.GetProject(id);
             if (project == null) return HttpNotFound();
+            var employees = projectService.Union(project.Employees, project.Executors); // сливаем все в один список
+            // присоедениее ProjectManager
+            if (project.ProjectManagerId != null && (employees.Where(item => item.Id == project.ProjectManagerId)).Count() < 1)
+                employees = employees.Prepend(employeeService.GetEmployee((int)project.ProjectManagerId));
+            if (employees != null && employees.Count() > 0) ViewBag.Employees = employees;
             return View(project);
         }
         [HttpPost]// POST: Project/Delete/5
@@ -117,7 +131,12 @@ namespace PresentationLayer.Controllers
             }
             catch
             {
-                return View();
+                var employees = projectService.Union(projectDTO.Employees, projectDTO.Executors); // сливаем все в один список
+                // присоедениее ProjectManager
+                if (projectDTO.ProjectManagerId != null && (employees.Where(item => item.Id == projectDTO.ProjectManagerId)).Count() < 1)
+                    employees = employees.Prepend(employeeService.GetEmployee((int)projectDTO.ProjectManagerId));
+                if (employees != null && employees.Count() > 0) ViewBag.Employees = employees;
+                return View(projectDTO);
             }
         }
 
