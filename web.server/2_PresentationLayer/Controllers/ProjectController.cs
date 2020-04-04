@@ -28,7 +28,7 @@ namespace PresentationLayer.Controllers
             ProjectDTO project = projectService.GetProject(id);
             if (project == null) return HttpNotFound();
 
-            var employees = projectService.Union(project.Employees, project.Executors); // сливаем все в один список
+            var employees = employeeService.Union(project.Employees, project.Executors); // сливаем все в один список
             // присоедениее ProjectManager
             if (project.ProjectManagerId != null && (employees.Where(item => item.Id == project.ProjectManagerId)).Count() < 1)
                 employees = employees.Prepend(employeeService.GetEmployee((int)project.ProjectManagerId));
@@ -107,7 +107,7 @@ namespace PresentationLayer.Controllers
         {
             ProjectDTO project = projectService.GetProject(id);
             if (project == null) return HttpNotFound();
-            var employees = projectService.Union(project.Employees, project.Executors); // сливаем все в один список
+            var employees = employeeService.Union(project.Employees, project.Executors); // сливаем все в один список
             // присоедениее ProjectManager
             if (project.ProjectManagerId != null && (employees.Where(item => item.Id == project.ProjectManagerId)).Count() < 1)
                 employees = employees.Prepend(employeeService.GetEmployee((int)project.ProjectManagerId));
@@ -128,7 +128,7 @@ namespace PresentationLayer.Controllers
             }
             catch
             {
-                var employees = projectService.Union(projectDTO.Employees, projectDTO.Executors); // сливаем все в один список
+                var employees = employeeService.Union(projectDTO.Employees, projectDTO.Executors); // сливаем все в один список
                 // присоедениее ProjectManager
                 if (projectDTO.ProjectManagerId != null && (employees.Where(item => item.Id == projectDTO.ProjectManagerId)).Count() < 1)
                     employees = employees.Prepend(employeeService.GetEmployee((int)projectDTO.ProjectManagerId));

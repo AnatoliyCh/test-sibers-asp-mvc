@@ -14,9 +14,8 @@ namespace BusinessLogicLayer.Services
     {
         private readonly IMapperEmployee mapperEmployee = new MapperEmployee();
         private readonly IMapperProject mapperProject = new MapperProject();
+        private IEqualityComparer<ProjectDTO> projectDTOEqualityComparer = new ProjectDTOEqualityComparer();
         public IUnitOfWork DataBase { get; set; }
-
-        private IEqualityComparer<EmployeeDTO> employeeDTOEqualityComparer = new EmployeeDTOEqualityComparer();
 
         public ProjectService() => DataBase = new UnitOfWork();
         public ProjectService(IUnitOfWork dataBase) => DataBase = dataBase;
@@ -75,29 +74,9 @@ namespace BusinessLogicLayer.Services
             if (dto != null) DataBase.Projects.Delete(dto.Id);
         }
         public void SaveProject() => DataBase.Save();
-        public ProjectDTO ProjectBind(ProjectDTO dto, IEnumerable<EmployeeDTO> employeesDTO)
+        public IEnumerable<ProjectDTO> Union(IEnumerable<ProjectDTO> first, IEnumerable<ProjectDTO> second)
         {
-            if (employeesDTO != null && dto.Employees != null && dto.Executors != null)
-            {
-                IList<EmployeeDTO> newEmployees = new List<EmployeeDTO>();
-                IList<EmployeeDTO> newExecutors = new List<EmployeeDTO>();
-                foreach (var employeeDTO in employeesDTO)
-                {
-                    // работники
-                    foreach (var employee in dto.Employees)
-                        if (employeeDTO.Id == employee.Id) newEmployees.Add(employeeDTO);
-                    // исполнители
-                    foreach (var executor in dto.Executors)
-                        if (employeeDTO.Id == executor.Id) newExecutors.Add(employeeDTO);
-                }
-                if (newEmployees.Count > 0) dto.Employees = newEmployees;
-                if (newExecutors.Count > 0) dto.Executors = newExecutors;
-            }
-            return dto;
-        }
-        public IEnumerable<EmployeeDTO> Union(IEnumerable<EmployeeDTO> first, IEnumerable<EmployeeDTO> second)
-        {
-            return first.Union(second, employeeDTOEqualityComparer);
+            return first.Union(second, projectDTOEqualityComparer);
         }
         public void Dispose() => DataBase.Dispose();
 

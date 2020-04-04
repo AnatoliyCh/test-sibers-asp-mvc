@@ -24,6 +24,10 @@
         <dt>@Html.LabelFor(model => model.Email)</dt>
         <dd>@Html.DisplayFor(model => model.Email)</dd>
     </dl>
+    <p>
+        @Html.ActionLink("К списку", "Index") |
+        @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id })
+    </p>
     @if (Model.EmployeeInProjects != null && Model.EmployeeInProjects.Count > 0)
     {
         <label class="display-label"><b>Сотрудник в:</b></label>
@@ -45,7 +49,3 @@
         </ul>
     }
 </div>
-<p>
-    @Html.ActionLink("К списку", "Index") |
-    @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id })
-</p>

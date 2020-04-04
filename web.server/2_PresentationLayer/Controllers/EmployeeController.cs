@@ -6,6 +6,7 @@ namespace PresentationLayer.Controllers
 {
     public class EmployeeController : Controller
     {
+        private ProjectService projectService = new ProjectService();
         private EmployeeService employeeService = new EmployeeService();
 
         // GET: Employee
@@ -17,6 +18,8 @@ namespace PresentationLayer.Controllers
         public ActionResult Details(int id = 1)
         {
             EmployeeDTO employee = employeeService.GetEmployee(id);
+            var projectDTOs = projectService.Union(employee.EmployeeInProjects, employee.ExecutorInProjects);
+            var managerProjects = employeeService.ManagerProjects(employee.Id, projectDTOs);
             if (employee == null) return HttpNotFound();
             return View(employee);
         }

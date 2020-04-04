@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.DTO;
+using BusinessLogicLayer.Infrastructure.Comparers;
 using BusinessLogicLayer.Interfaces;
 using BusinessLogicLayer.Mappers;
 using DataAccessLayer.Interfaces;
@@ -13,6 +14,7 @@ namespace BusinessLogicLayer.Services
     {
         private readonly IMapperEmployee mapperEmployee = new MapperEmployee();
         private readonly IMapperProject mapperProject = new MapperProject();
+        private IEqualityComparer<EmployeeDTO> employeeDTOEqualityComparer = new EmployeeDTOEqualityComparer();
         public IUnitOfWork DataBase { get; set; }
 
         public EmployeeService() => DataBase = new UnitOfWork();
@@ -36,12 +38,12 @@ namespace BusinessLogicLayer.Services
             if (employees != null) return mapperEmployee.GetDTOs(employees);
             return null;
         }
-        public IEnumerable<EmployeeDTO> GetEmployees(int[] idEmployees, IEnumerable<EmployeeDTO> employees)
+        public IEnumerable<EmployeeDTO> GetEmployees(int[] idEmployees, IEnumerable<EmployeeDTO> employeesDTOs)
         {
             IList<EmployeeDTO> tmpEmployees = new List<EmployeeDTO>();
-            if (idEmployees != null && idEmployees.Length > 0 && employees != null && employees.Count() > 0)
+            if (idEmployees != null && idEmployees.Length > 0 && employeesDTOs != null && employeesDTOs.Count() > 0)
             {
-                foreach (var employee in employees)
+                foreach (var employee in employeesDTOs)
                     foreach (var id in idEmployees)
                     {
                         if (employee.Id == id) tmpEmployees.Add(employee);
@@ -68,6 +70,17 @@ namespace BusinessLogicLayer.Services
         public void DeleteEmployee(EmployeeDTO dto)
         {
             if (dto != null) DataBase.Employees.Delete(dto.Id);
+        }
+        public IEnumerable<EmployeeDTO> Union(IEnumerable<EmployeeDTO> first, IEnumerable<EmployeeDTO> second)
+        {
+            return first.Union(second, employeeDTOEqualityComparer);
+        }
+        public IEnumerable<ProjectDTO> ManagerProjects(int managerId, IEnumerable<ProjectDTO> projectDTOs)
+        {
+            IEnumerable<ProjectDTO> managerProjects = new List<ProjectDTO>();
+            if (projectDTOs != null && projectDTOs.Count() > 0)
+                managerProjects = projectDTOs.Where(item => item.ProjectManagerId == managerId);
+            return managerProjects;
         }
         public void Dispose() => DataBase.Dispose();
     }

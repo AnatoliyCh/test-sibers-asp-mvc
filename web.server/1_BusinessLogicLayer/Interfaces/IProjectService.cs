@@ -8,13 +8,10 @@ namespace BusinessLogicLayer.Interfaces
         ProjectDTO GetProject(int id);
         IEnumerable<ProjectDTO> GetProjects();
         void CreateProject(ProjectDTO dto, int[] selectedEmployees = null, int[] selectedExecutors = null);
-        void SaveProject();
-        void UpdateProject(ProjectDTO dto);
+        void UpdateProject(ProjectDTO dto);              
         void DeleteProject(ProjectDTO dto);
-        /// <summary> замены ссылок у DTO на объекты из новой коллекции </summary>
-        ProjectDTO ProjectBind(ProjectDTO dto, IEnumerable<EmployeeDTO> employeesDTO);
-        /// <summary> Объединяет 2 коллекции работников проекта </summary>        
-        IEnumerable<EmployeeDTO> Union(IEnumerable<EmployeeDTO> first, IEnumerable<EmployeeDTO> second);
+        void SaveProject();
+        IEnumerable<ProjectDTO> Union(IEnumerable<ProjectDTO> first, IEnumerable<ProjectDTO> second);
         void Dispose();
     }
 }
