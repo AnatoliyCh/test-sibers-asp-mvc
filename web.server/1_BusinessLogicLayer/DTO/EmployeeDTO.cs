@@ -9,7 +9,7 @@ namespace BusinessLogicLayer.DTO
         [Display(Name = "Фамилия")] public string LastName { get; set; }
         [Display(Name = "Имя")] public string FirstName { get; set; }
         [Display(Name = "Отчество")] public string MiddleName { get; set; }
-        [Display(Name = "E-mail")] public string Email { get; set; }
+        [EmailAddress(ErrorMessage = "Некорректный e-mail"), Display(Name = "E-mail")] public string Email { get; set; }
         [Display(Name = "Сотрудник в ")] public ICollection<ProjectDTO> EmployeeInProjects { get; set; } // проекты в которых сотрудник
         [Display(Name = "Исполнитель в ")] public ICollection<ProjectDTO> ExecutorInProjects { get; set; } // проекты в которых исполнитель
 
