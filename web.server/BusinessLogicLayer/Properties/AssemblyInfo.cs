@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов для изменения сведений,
 // связанные со сборкой.
-[assembly: AssemblyTitle("1_BusinessLogicLayer")]
+[assembly: AssemblyTitle("BusinessLogicLayer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("1_BusinessLogicLayer")]
+[assembly: AssemblyProduct("BusinessLogicLayer")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID служит для идентификации библиотеки типов, если этот проект будет видимым для COM
-[assembly: Guid("daea2e6b-badc-4ca2-b2f5-921bff3f2629")]
+[assembly: Guid("62756a06-0945-422d-9050-d5f790ffb87a")]
 
 // Сведения о версии сборки состоят из указанных ниже четырех значений:
 //
