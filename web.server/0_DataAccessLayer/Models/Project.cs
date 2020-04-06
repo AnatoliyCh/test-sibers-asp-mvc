@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace DataAccessLayer.Models
 {
+    /// <summary> Проект </summary>
     public class Project
     {
         public int Id { get; set; }

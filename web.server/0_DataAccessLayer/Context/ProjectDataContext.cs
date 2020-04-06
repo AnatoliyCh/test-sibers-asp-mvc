@@ -1,12 +1,5 @@
 ﻿using DataAccessLayer.Models;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
-using System.Data.SqlClient;
 
 namespace DataAccessLayer.Context
 {
@@ -14,7 +7,6 @@ namespace DataAccessLayer.Context
     {
         public DbSet<Project> Projects { get; set; }
         public DbSet<Employee> Employees { get; set; }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             var entity = modelBuilder.Entity<Project>();

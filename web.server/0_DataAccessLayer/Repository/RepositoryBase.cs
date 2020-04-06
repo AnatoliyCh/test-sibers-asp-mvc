@@ -26,12 +26,14 @@ namespace DataAccessLayer.Repository
             return dbSet.ToList();
         }
         public virtual void Create(T entity) => dbSet.Add(entity);
+        
         /// <summary> обновление только сущности </summary>
         public virtual void Update(T entity)
         {
             dbSet.Attach(entity);
             dataContext.Entry(entity).State = EntityState.Modified;
         }
+        
         /// <summary> обновление сущности и всех свойств многие-ко-многим </summary>
         /// <param name="navigationProperties">список свойств</param>
         public virtual void Update(T entity, int id, string[] navigationProperties = null)
@@ -48,7 +50,7 @@ namespace DataAccessLayer.Repository
                     collection.CurrentValue = typeof(T).GetProperty(prop).GetValue(entity);
                 }
             }
-            dataContext.SaveChanges();            
+            dataContext.SaveChanges();
         }
         public virtual void Delete(T entity) => dbSet.Remove(entity);
         public virtual void Delete(int id)
