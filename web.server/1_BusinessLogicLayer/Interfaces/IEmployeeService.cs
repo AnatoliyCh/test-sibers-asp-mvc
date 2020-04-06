@@ -10,10 +10,10 @@ namespace BusinessLogicLayer.Interfaces
         IEnumerable<EmployeeDTO> GetEmployees();
         /// <summary> получает работников из employees с id из idEmployees </summary>
         IEnumerable<EmployeeDTO> GetEmployees(int[] idEmployees, IEnumerable<EmployeeDTO> employeesDTOs);
-        void CreateEmployee(EmployeeDTO dto);
-        void SaveEmployee();
+        void CreateEmployee(EmployeeDTO dto);        
         void UpdateEmployee(EmployeeDTO dto);
         void DeleteEmployee(EmployeeDTO dto);
+        void SaveEmployee();
         IEnumerable<EmployeeDTO> Union(IEnumerable<EmployeeDTO> first, IEnumerable<EmployeeDTO> second);
         IEnumerable<ProjectDTO> ManagerProjects(int managerId, IEnumerable<ProjectDTO> projectDTOs);
         void Dispose();

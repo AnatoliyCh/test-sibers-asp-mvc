@@ -1,23 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogicLayer.DTO
 {
     public class ProjectDTO
     {
-        public ProjectDTO()
-        {
-            Employees = new List<EmployeeDTO>();
-            Executors = new List<EmployeeDTO>();
-            ProjectManagerId = null;
-            StartDate = DateTime.Now;
-            EndDate = DateTime.Now.AddYears(1);
-        }
-
         public int Id { get; set; }
         [Display(Name = "Название")] public string Name { get; set; }
         [Display(Name = "Компания-заказчик")] public string CustomerName { get; set; } // компания-заказчик
@@ -40,5 +28,14 @@ namespace BusinessLogicLayer.DTO
         public int EmployeesAmount { get; set; }
         // количество исполнителей
         public int ExecutorsAmount { get; set; }
+
+        public ProjectDTO()
+        {
+            Employees = new List<EmployeeDTO>();
+            Executors = new List<EmployeeDTO>();
+            ProjectManagerId = null;
+            StartDate = DateTime.Now;
+            EndDate = DateTime.Now.AddYears(1);
+        }
     }
 }

@@ -61,8 +61,7 @@ namespace BusinessLogicLayer.Services
                 if (dto.ExecutorInProjects.Count > 0) newEmployee.ExecutorInProjects = (ICollection<Project>)mapperProject.GetNewModels(dto.ExecutorInProjects);
                 DataBase.Employees.Create(newEmployee);
             }
-        }
-        public void SaveEmployee() => DataBase.Save();
+        }        
         public void UpdateEmployee(EmployeeDTO dto)
         {
             if (dto != null) DataBase.Employees.Update(mapperEmployee.GetNewModel(dto));
@@ -71,6 +70,7 @@ namespace BusinessLogicLayer.Services
         {
             if (dto != null) DataBase.Employees.Delete(dto.Id);
         }
+        public void SaveEmployee() => DataBase.Save();
         public IEnumerable<EmployeeDTO> Union(IEnumerable<EmployeeDTO> first, IEnumerable<EmployeeDTO> second)
         {
             return first.Union(second, employeeDTOEqualityComparer);
